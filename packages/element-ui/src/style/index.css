@@ -320,6 +320,7 @@
     display: flex;
     border-bottom: 1px solid #ECECEC;
     padding: 0;
+    position: relative;
 }
 
 ._fc-l-tab {

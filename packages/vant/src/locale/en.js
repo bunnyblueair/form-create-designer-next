@@ -373,6 +373,7 @@ const En = {
         reset: 'Reset',
         copy: 'Copy',
         import: 'Import',
+        export: 'Export',
         delete: 'Delete',
         hide: 'Hidden',
         show: 'Show',

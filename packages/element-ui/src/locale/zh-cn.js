@@ -372,6 +372,7 @@ const ZhCn = {
         reset: '重置',
         copy: '复制',
         import: '导入',
+        export: '导出',
         delete: '删除',
         hide: '隐藏',
         show: '显示',
