@@ -271,7 +271,7 @@
                                 <p class="_fc-r-title">{{ t('designer.type') }}</p>
                                 <TypeSelect :disabled="activePermission.switchType === false"></TypeSelect>
                                 <template
-                                    v-if="activePermission.name !== false && (activeRule && activeRule.name && config.showComponentName !== false)">
+                                    v-if="activePermission.name !== false && (activeRule && activeRule._menu.aide !== true && config.showComponentName !== false)">
                                     <p class="_fc-r-title">
                                         <Warning :tooltip="t('warning.name')">
                                             {{ t('designer.name') }}
@@ -279,6 +279,7 @@
                                     </p>
                                     <el-input size="small" class="_fc-r-name-input"
                                               v-model="activeRule.name"
+                                              @change="changeName"
                                               :readonly="getConfig('nameReadonly') !== false">
                                         <template #suffix>
                                             <i class="fc-icon icon-group" @click="copyName"></i>
@@ -985,6 +986,11 @@ export default defineComponent({
             },
             updateName() {
                 data.activeRule.name = 'ref_' + uniqueId();
+            },
+            changeName() {
+                if (!data.activeRule.name) {
+                    methods.updateName();
+                }
             },
             makeDrag(group, tag, children, on, slot) {
                 return {
