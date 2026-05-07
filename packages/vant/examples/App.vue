@@ -152,6 +152,81 @@ export default {
                 autoActive: true,
                 fieldReadonly: false,
                 showSaveBtn: true,
+                fieldList: [
+                    {
+                        value: 'goods',
+                        label: '商品表',
+                        selectable: false,
+                        children: [
+                            {
+                                value: 'goods_id',
+                                label: '商品ID',
+                            },
+                            {
+                                value: 'goods_name',
+                                label: '商品名称',
+                            },
+                            {
+                                value: 'goods_info',
+                                label: '商品简介',
+                            },
+                            {
+                                value: 'goods_cate',
+                                label: '商品分类',
+                            },
+                            {
+                                value: 'goods_update_time',
+                                label: '商品上架时间',
+                            },
+                        ],
+                    },
+                    {
+                        value: 'user',
+                        label: '用户表',
+                        selectable: false,
+                        children: [
+                            {
+                                value: 'user_id',
+                                label: '用户ID',
+                            },
+                            {
+                                value: 'phone',
+                                label: '手机号',
+                            },
+                            {
+                                value: 'username',
+                                label: '用户名称',
+                            },
+                            {
+                                value: 'user_mark',
+                                label: '用户备注',
+                            },
+                            {
+                                value: 'avatar',
+                                label: '用户头像',
+                            },
+                        ],
+                    },
+                    {
+                        value: 'order',
+                        label: '订单表',
+                        selectable: false,
+                        children: [
+                            {
+                                value: 'order_id',
+                                label: '订单ID',
+                            },
+                            {
+                                value: 'order_sn',
+                                label: '订单号',
+                            },
+                            {
+                                value: 'order_time',
+                                label: '订单时间',
+                            },
+                        ],
+                    },
+                ],
             },
             handle: [
                 {

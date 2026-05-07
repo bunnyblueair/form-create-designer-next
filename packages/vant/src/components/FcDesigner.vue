@@ -1734,6 +1734,22 @@ export default defineComponent({
                 }
                 return flag;
             },
+            mergeRule(rule, update) {
+                Object.keys(update).forEach(k => {
+                    if (k === 'required') {
+                        rule.$required = !!update.required;
+                    } else if (k === 'disabled') {
+                        if (!rule.props) {
+                            rule.props = {};
+                        }
+                        rule.props.disabled = !!update.disabled;
+                    } else if (k === 'props') {
+                        rule.props = {...(rule.props || {}), ...deepCopy(update[k])};
+                    } else {
+                        rule[k] = deepCopy(update[k]);
+                    }
+                });
+            },
             dragMenu({menu, children, index, slot}) {
                 if (data.inputForm.state) {
                     return;
