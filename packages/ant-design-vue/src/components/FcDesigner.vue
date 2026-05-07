@@ -212,6 +212,7 @@
                             <div class="_fc-m-drag" :class="device"
                                  ref="dragCon"
                                  :style="{'--fc-drag-empty': `'${t('designer.dragEmpty')}'`,'--fc-child-empty': `'${t('designer.childEmpty')}'`}">
+                                <slot name="header"></slot>
                                 <div class="_fc-m-input" v-if="inputForm.state">
                                     <ViewForm :key="inputForm.key" :rule="inputForm.rule" :option="inputForm.option"
                                               :locale="locale?.name"
