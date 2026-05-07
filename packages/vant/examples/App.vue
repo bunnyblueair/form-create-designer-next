@@ -17,7 +17,10 @@
                     <a href="https://form-create.com/v3/designer" class="item">PC端设计器</a>
                     <a href="https://pro.form-create.com/mobile" class="item pro-version">高级版🔥</a>
                     <a href="https://view.form-create.com/" target="_blank" class="item">文档</a>
+                    <a href="https://view.form-create.com/skills" target="_blank" class="item">Agent Skills</a>
+                    <a href="https://www.form-create.com/service/example" target="_blank" class="item">更多示例</a>
                     <a href="https://github.com/xaboy/form-create-designer" target="_blank" class="item">查看源码</a>
+                    <ApiKeyInput @save="onApiKeySave" />
                 </div>
             </div>
         </div>
@@ -116,6 +119,7 @@ import En from "../src/locale/en";
 import arrowDown from "@element-plus/icons-vue/dist/es/arrow-down.mjs";
 import {copyTextToClipboard} from "../src/utils";
 import ConfigPanel from "./components/ConfigPanel.vue";
+import ApiKeyInput from './components/ApiKeyInput.vue';
 
 const CACHE_KEY = 'fcm-config-$101';
 const TITLE = ['生成规则', '表单规则', '生成组件', '设置生成规则', '设置表单规则'];
@@ -125,6 +129,7 @@ export default {
     components: {
         ConfigPanel,
         arrowDown,
+        ApiKeyInput,
     },
     data() {
         let data = window.location.hash.substring(1);
@@ -150,6 +155,9 @@ export default {
             topImg: true,
             config: {
                 autoActive: true,
+                ai: {
+                    api: 'https://api.form-create.com/ai/v2/demo/chat',
+                },
                 fieldReadonly: false,
                 showSaveBtn: true,
                 fieldList: [
@@ -252,6 +260,17 @@ export default {
     methods: {
         goPro() {
             location.href = 'https://pro.form-create.com/view';
+        },
+        onApiKeySave(apiKey) {
+            if (apiKey) {
+                this.config.ai = {
+                    token: `Bearer ${apiKey}`,
+                };
+            } else {
+                this.config.ai = {
+                    api: 'https://api.form-create.com/ai/v2/demo/chat',
+                };
+            }
         },
         panelChange(config) {
             if (config.locale === 'en') {
@@ -364,7 +383,7 @@ export default {
             const rule = this.$refs.designer.getJson();
             const options = this.$refs.designer.getOptionsJson();
             const str = btoa(unescape(encodeURIComponent(JSON.stringify({rule, options}))));
-            copyTextToClipboard('https://form-create.com/v3/mobile#' + str);
+            copyTextToClipboard(location.origin + location.pathname + '#' + str);
         },
         onOk() {
             if (this.err) return;
