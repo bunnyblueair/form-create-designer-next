@@ -1,13 +1,18 @@
 <template>
-    <div class="_fc-table-form" :class="{'_fc-disabled': disabled}">
-        <component :is="Form" :option="options" :rule="rule" :extendOption="true"
-                   :disabled="disabled"
-                   @change="formChange"
-                   v-model:api="fapi"
-                   @emit-event="$emit"></component>
-        <van-button type="primary" size="mini" class="fc-clock" v-if="addable && (!max || max > this.trs.length)"
-                    @click="addRaw(true)"><i class="fc-icon icon-add-circle" style="font-weight: 700;"></i>
-            {{formCreateInject.t('add') || '添加'}}
+    <div class="_fc-table-form" :class="{ '_fc-disabled': disabled, '_fc-undeletable': !deletable }">
+        <component
+            :is="Form"
+            :option="options"
+            :rule="rule"
+            :extendOption="true"
+            :disabled="disabled"
+            @change="formChange"
+            v-model:api="fapi"
+            @emit-event="$emit"
+        ></component>
+        <van-button type="primary" size="mini" class="fc-clock" v-if="addable && (!max || max > this.trs.length)" @click="addRaw(true)"
+        ><i class="fc-icon icon-add-circle" style="font-weight: 700"></i>
+            {{ formCreateInject.t('add') || '添加' }}
         </van-button>
     </div>
 </template>
@@ -27,7 +32,7 @@ export default {
         columns: {
             type: Array,
             required: true,
-            default: () => []
+            default: () => [],
         },
         filterEmptyColumn: {
             type: Boolean,
@@ -43,24 +48,31 @@ export default {
         },
         options: {
             type: Object,
-            default: () => reactive(({
-                submitBtn: false,
-                resetBtn: false,
-            }))
+            default: () =>
+                reactive({
+                    submitBtn: false,
+                    resetBtn: false,
+                }),
         },
         max: Number,
         min: Number,
         disabled: Boolean,
+        beforeRemove: Function,
     },
     watch: {
         modelValue: {
             handler() {
-                this.updateTable()
+                this.updateTable();
             },
-            deep: true
+            deep: true,
         },
         'formCreateInject.preview': function (n) {
-            this.emptyRule.children[0].props.colspan = this.columns.length + (n ? 1 : 2);
+            this.emptyRule.children[0].props.colspan =
+                this.columns.filter(column => true !== column.hidden).length + (n || !this.deletable ? 1 : 2);
+        },
+        deletable(n) {
+            this.emptyRule.children[0].props.colspan =
+                this.columns.filter(column => true !== column.hidden).length + (this.formCreateInject.preview || !n ? 1 : 2);
         },
     },
     data() {
@@ -85,11 +97,13 @@ export default {
                         native: true,
                         subRule: true,
                         props: {
-                            colspan: this.columns.length + (this.formCreateInject.preview ? 1 : 2),
+                            colspan:
+                                this.columns.filter(column => true !== column.hidden).length +
+                                (this.formCreateInject.preview || !this.deletable ? 1 : 2),
                         },
-                        children: [this.formCreateInject.t('dataEmpty') || '暂无数据']
-                    }
-                ]
+                        children: [this.formCreateInject.t('dataEmpty') || '暂无数据'],
+                    },
+                ],
             },
         };
     },
@@ -98,24 +112,26 @@ export default {
             this.updateValue();
         },
         updateValue() {
-            const value = this.trs.map((tr, idx) => {
-                return {
-                    ...(this.modelValue[idx] || {}),
-                    ...this.fapi.getChildrenFormData(tr)
-                }
-            }).filter(v => {
-                if (!this.filterEmptyColumn) {
-                    return true;
-                }
-                if (v === undefined || v === null) {
-                    return false;
-                }
-                let flag = false;
-                Object.keys(v).forEach(k => {
-                    flag = flag || (v[k] !== undefined && v[k] !== '' && v[k] !== null)
+            const value = this.trs
+                .map((tr, idx) => {
+                    return {
+                        ...(this.modelValue[idx] || {}),
+                        ...this.fapi.getChildrenFormData(tr),
+                    };
                 })
-                return flag;
-            });
+                .filter(v => {
+                    if (!this.filterEmptyColumn) {
+                        return true;
+                    }
+                    if (v === undefined || v === null) {
+                        return false;
+                    }
+                    let flag = false;
+                    Object.keys(v).forEach(k => {
+                        flag = flag || (v[k] !== undefined && v[k] !== '' && v[k] !== null);
+                    });
+                    return flag;
+                });
             const str = JSON.stringify(value);
             if (str !== this.oldValue) {
                 this.oldValue = str;
@@ -158,9 +174,15 @@ export default {
                 this.trs.splice(0, 1);
             }
         },
-        delRaw(idx) {
+        async delRaw(idx) {
             if (this.disabled || !this.deletable || (this.min > 0 && this.trs.length <= this.min)) {
                 return;
+            }
+            if (this.beforeRemove) {
+                const result = await this.beforeRemove({index: idx, row: this.modelValue[idx] || {}});
+                if (result === false) {
+                    return;
+                }
             }
             this.trs.splice(idx, 1);
             this.updateValue();
@@ -194,42 +216,48 @@ export default {
             };
         },
         loadRule() {
-            const header = [{
-                type: 'th',
-                native: true,
-                class: '_fc-tf-head-idx',
-            }];
-            let body = [{
-                type: 'td',
-                class: '_fc-tf-idx',
-                native: true,
-                props: {
-                    innerText: '0'
-                }
-            }];
-            this.columns.forEach((column) => {
-                header.push({
+            const header = [
+                {
                     type: 'th',
                     native: true,
-                    style: {...column.style||{}, textAlign: column.align || 'center'},
-                    class: column.required ? '_fc-tf-head-required' : '',
-                    props: {
-                        innerText: column.label || ''
-                    }
-                });
-                body.push({
+                    class: '_fc-tf-head-idx',
+                },
+            ];
+            let body = [
+                {
                     type: 'td',
+                    class: '_fc-tf-idx',
                     native: true,
-                    children: [...(column.rule || [])]
-                });
+                    props: {
+                        innerText: '0',
+                    },
+                },
+            ];
+            this.columns.forEach(column => {
+                if (column.hidden !== true) {
+                    header.push({
+                        type: 'th',
+                        native: true,
+                        style: {...(column.style || {}), textAlign: column.align || 'center'},
+                        class: column.required ? '_fc-tf-head-required' : '',
+                        props: {
+                            innerText: column.label || '',
+                        },
+                    });
+                    body.push({
+                        type: 'td',
+                        native: true,
+                        children: [...(column.rule || [])],
+                    });
+                }
             });
             header.push({
                 type: 'th',
                 native: true,
                 class: '_fc-tf-edit fc-clock',
                 props: {
-                    innerText: this.formCreateInject.t('operation') || '操作'
-                }
+                    innerText: this.formCreateInject.t('operation') || '操作',
+                },
             });
             body.push({
                 type: 'td',
@@ -241,7 +269,7 @@ export default {
                         native: true,
                         class: 'fc-icon icon-delete',
                         props: {},
-                    }
+                    },
                 ],
             });
             this.copyTrs = this.formCreateInject.form.toJson([
@@ -249,8 +277,8 @@ export default {
                     type: 'tr',
                     native: true,
                     subRule: true,
-                    children: body
-                }
+                    children: body,
+                },
             ]);
             this.rule = [
                 {
@@ -270,18 +298,18 @@ export default {
                                 {
                                     type: 'tr',
                                     native: true,
-                                    children: header
-                                }
-                            ]
+                                    children: header,
+                                },
+                            ],
                         },
                         {
                             type: 'tbody',
                             native: true,
-                            children: this.trs
-                        }
-                    ]
-                }
-            ]
+                            children: this.trs,
+                        },
+                    ],
+                },
+            ];
         },
     },
     created() {
@@ -289,14 +317,18 @@ export default {
     },
     mounted() {
         this.updateTable();
-    }
+    },
 };
 </script>
 
 <style>
 ._fc-table-form {
-    overflow: auto;
+    width: 100%;
     color: #666666;
+}
+._fc-table-form .form-create,
+._fc-table-form .form-create-m {
+    overflow: auto;
 }
 
 ._fc-table-form .van-button {
@@ -321,14 +353,16 @@ export default {
     display: none !important;
 }
 
-._fc-tf-head-idx, ._fc-tf-idx {
+._fc-tf-head-idx,
+._fc-tf-idx {
     width: 40px;
     min-width: 40px;
     font-weight: 500;
     text-align: center;
 }
 
-._fc-tf-edit, ._fc-tf-btn {
+._fc-tf-edit,
+._fc-tf-btn {
     width: 70px;
     min-width: 70px;
     text-align: center;
@@ -338,7 +372,8 @@ export default {
     cursor: pointer;
 }
 
-._fc-table-form._fc-disabled ._fc-tf-btn .fc-icon, ._fc-table-form._fc-disabled > .el-button {
+._fc-table-form._fc-disabled ._fc-tf-btn .fc-icon,
+._fc-table-form._fc-disabled > .el-button {
     cursor: not-allowed;
 }
 
@@ -347,13 +382,13 @@ export default {
     height: 100%;
     overflow: hidden;
     table-layout: fixed;
-    border: 1px solid #EBEEF5;
+    border: 1px solid #ebeef5;
     border-bottom: 0 none;
 }
 
 ._fc-table-form ._fc-tf-table > thead > tr > th {
     border: 0 none;
-    border-bottom: 1px solid #EBEEF5;
+    border-bottom: 1px solid #ebeef5;
     height: 40px;
     font-weight: 500;
     text-align: center;
@@ -362,7 +397,7 @@ export default {
 }
 
 ._fc-table-form ._fc-tf-table > thead > tr > th + th {
-    border-left: 1px solid #EBEEF5;
+    border-left: 1px solid #ebeef5;
 }
 
 ._fc-table-form tr {
@@ -384,16 +419,21 @@ export default {
     /*white-space: nowrap;*/
     overflow: hidden;
     border: 0 none;
-    border-bottom: 1px solid #EBEEF5;
+    border-bottom: 1px solid #ebeef5;
 }
 
 ._fc-table-form td + td {
-    border-left: 1px solid #EBEEF5;
+    border-left: 1px solid #ebeef5;
 }
 
-._fc-tf-head-required:before{
+._fc-tf-head-required:before {
     content: '*';
     color: #f56c6c;
     margin-right: 4px;
+}
+
+._fc-undeletable ._fc-tf-edit,
+._fc-undeletable ._fc-tf-btn {
+    display: none !important;
 }
 </style>

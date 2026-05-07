@@ -790,6 +790,7 @@ const En = {
         },
         tableForm: {
             name: 'TableForm',
+            info: 'Callback before deleting a table row, return false to prevent deletion',
             props: {
                 disabled: 'Disabled',
                 filterEmptyColumn: 'Whether to filter empty rows',
@@ -797,6 +798,7 @@ const En = {
                 min: 'Minimum number of rows to add',
                 addable: 'Allow to add',
                 deletable: 'Allow delete',
+                beforeRemove: 'Before remove callback',
             }
         },
         tableFormColumn: {

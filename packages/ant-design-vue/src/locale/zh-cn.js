@@ -828,6 +828,7 @@ const ZhCn = {
         },
         tableForm: {
             name: '表格表单',
+            info: '删除表格行前的回调函数，返回 false 可阻止删除操作',
             props: {
                 disabled: '是否禁用',
                 filterEmptyColumn: '是否过滤空行的数据',
@@ -835,6 +836,7 @@ const ZhCn = {
                 min: '最少添加几行',
                 addable: '允许新增',
                 deletable: '允许删除',
+                beforeRemove: '删除前置回调',
             }
         },
         tableFormColumn: {
