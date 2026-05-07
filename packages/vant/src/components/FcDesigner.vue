@@ -256,14 +256,7 @@
                                       :modelValue="form.value" @change="formOptChange"
                                       v-model:api="form.api"  @mounted="formMounted">
                                 <template #title="scope">
-                                    <template v-if="scope.rule.warning">
-                                        <Warning :tooltip="scope.rule.warning">
-                                            {{ scope.rule.title }}
-                                        </Warning>
-                                    </template>
-                                    <template v-else>
-                                        {{scope.rule.title}}
-                                    </template>
+                                    <FormLabel :rule="scope.rule"></FormLabel>
                                 </template>
                             </DragForm>
                         </el-main>
@@ -331,14 +324,7 @@
                                               :modelValue="propsForm.value"
                                               @change="propChange" @removeField="propRemoveField">
                                         <template #title="scope">
-                                            <template v-if="scope.rule.warning">
-                                                <Warning :tooltip="scope.rule.warning">
-                                                    {{ scope.rule.title }}
-                                                </Warning>
-                                            </template>
-                                            <template v-else>
-                                                {{scope.rule.title}}
-                                            </template>
+                                            <FormLabel :rule="scope.rule"></FormLabel>
                                         </template>
                                     </DragForm>
                                     <el-divider v-if="customForm.isShow && customForm.propsShow">
@@ -479,6 +465,7 @@ import LanguageConfig from './language/LanguageConfig.vue';
 import FcAiPanel from './ai/AiPanel.vue';
 import JsonPreview from './JsonPreview.vue';
 import Warning from './Warning.vue';
+import FormLabel from './FormLabel.vue';
 import ConfigItem from './style/ConfigItem.vue';
 
 hljs.registerLanguage('javascript', javascript);
@@ -489,6 +476,7 @@ export default defineComponent({
     components: {
         ConfigItem,
         Warning,
+        FormLabel,
         JsonPreview,
         LanguageConfig,
         FcAiPanel,

@@ -247,14 +247,7 @@
                                           :modelValue="form.value" @change="formOptChange"
                                           v-model:api="form.api"  @mounted="formMounted">
                                     <template #title="scope">
-                                        <template v-if="scope.rule.warning">
-                                            <Warning :tooltip="scope.rule.warning">
-                                                {{ scope.rule.title }}
-                                            </Warning>
-                                        </template>
-                                        <template v-else>
-                                            {{scope.rule.title}}
-                                        </template>
+                                        <FormLabel :rule="scope.rule"></FormLabel>
                                     </template>
                                 </DragForm>
                             </a-layout-content>
@@ -323,14 +316,7 @@
                                                   :modelValue="propsForm.value"
                                                   @change="propChange" @removeField="propRemoveField">
                                             <template #title="scope">
-                                                <template v-if="scope.rule.warning">
-                                                    <Warning :tooltip="scope.rule.warning">
-                                                        {{ scope.rule.title }}
-                                                    </Warning>
-                                                </template>
-                                                <template v-else>
-                                                    {{scope.rule.title}}
-                                                </template>
+                                                <FormLabel :rule="scope.rule"></FormLabel>
                                             </template>
                                         </DragForm>
                                         <a-divider v-if="customForm.isShow && customForm.propsShow" id="_fd-config-props">
@@ -470,6 +456,7 @@ import LanguageConfig from './language/LanguageConfig.vue';
 import FcAiPanel from './ai/AiPanel.vue';
 import JsonPreview from './JsonPreview.vue';
 import Warning from './Warning.vue';
+import FormLabel from './FormLabel.vue';
 import mergeProps from '@form-create/utils/lib/mergeprops';
 import ConfigItem from './style/ConfigItem.vue';
 
@@ -480,6 +467,7 @@ export default defineComponent({
     name: 'FcDesigner',
     components: {
         Warning,
+        FormLabel,
         LanguageConfig,
         PropsInput,
         JsonPreview,
