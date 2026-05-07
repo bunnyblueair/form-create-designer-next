@@ -1848,6 +1848,18 @@ export default defineComponent({
                 if (!methods.checkAllowDrag(menu, toMenu)) {
                     return false;
                 }
+
+                let parentRule = toRule;
+
+                while (parentRule) {
+                    parentRule = parentRule?.__fc__?.parent?.rule;
+                    if (parentRule && parentRule._menu) {
+                        if (!methods.checkAllowDrag(menu, parentRule._menu)) {
+                            return false;
+                        }
+                    }
+                }
+
                 if (toRule.children && toMenu.maxChildren && toMenu.maxChildren <= toRule.children[0]?.children?.length) {
                     return false;
                 }
