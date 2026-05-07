@@ -807,6 +807,10 @@
     z-index: 999999;
 }
 
+._fd-drag-item {
+    width: 100%;
+}
+
 ._fd-menu {
     display: flex;
     flex-direction: column;

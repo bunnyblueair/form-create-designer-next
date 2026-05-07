@@ -850,3 +850,7 @@
 .CodeMirror-hints {
     z-index: 999999;
 }
+
+._fd-drag-item {
+    width: 100%;
+}

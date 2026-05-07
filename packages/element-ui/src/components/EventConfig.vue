@@ -405,10 +405,6 @@ export default defineComponent({
     width: 100%;
 }
 
-._fd-event-dialog .el-dialog__body {
-    padding: 10px 20px;
-}
-
 ._fd-event-con .el-main {
     padding: 0;
 }
