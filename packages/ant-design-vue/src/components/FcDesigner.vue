@@ -1107,6 +1107,11 @@ export default defineComponent({
                     })
                 }
                 Object.keys(options).forEach(k => {
+                    Object.keys(options[k]).forEach(key => {
+                        if (isNull(options[k][key]) || (typeof options[k][key] === 'object' && !Object.keys(options[k][key]).length)) {
+                            delete options[k][key];
+                        }
+                    });
                     if (is.Object(options[k]) && !Object.keys(options[k]).length) {
                         delete options[k];
                     }
@@ -1667,6 +1672,9 @@ export default defineComponent({
                 } else if (Array.isArray(appendConfigData)) {
                     appendConfigData.forEach(v => {
                         formData[v] = undefined;
+                        propFieldDeepFn(v, ({ source, field }) => {
+                            formData[v] = source[field];
+                        });
                     });
                 }
                 Object.keys(rule).forEach(k => {
