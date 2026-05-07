@@ -169,7 +169,7 @@ export default defineComponent({
             activeData: null,
             val: null,
             defActive: 'no',
-            hookList: ['hook_load', 'hook_mounted', 'hook_deleted', 'hook_watch', 'hook_value', 'hook_hidden', 'hook_titleClick'],
+            hookList: ['hook_load', 'hook_mounted', 'hook_beforeUnmount', 'hook_deleted', 'hook_watch', 'hook_value', 'hook_hidden', 'hook_titleClick'],
             event: {},
             cus: false,
             cusValue: '',

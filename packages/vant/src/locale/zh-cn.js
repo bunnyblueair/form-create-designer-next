@@ -173,6 +173,7 @@ const ZhCn = {
         validateFail: '表单验证失败时触发',
         hook_load: '组件规则加载后触发',
         hook_mounted: '组件挂载后触发',
+        hook_beforeUnmount: '组件卸载前触发',
         hook_deleted: '组件规则被移除后触发',
         hook_watch: '组件规则发生变化后触发',
         hook_value: '组件的值发生变化后触发',

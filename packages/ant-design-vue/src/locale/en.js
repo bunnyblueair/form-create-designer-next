@@ -174,6 +174,7 @@ const En = {
         loaded: 'Triggered after initialization is completed',
         hook_load: 'Triggered after component rules are loaded',
         hook_mounted: 'Triggered after component is mounted',
+        hook_beforeUnmount: 'Triggered before the component is unmounted',
         hook_deleted: 'Triggered after component rules are removed',
         hook_watch: 'Triggered after component rules change',
         hook_value: 'Triggered after component value changes',
