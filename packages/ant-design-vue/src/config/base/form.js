@@ -100,6 +100,11 @@ export default function form({t}) {
                         args: ['api'],
                     },
                     {
+                        name: 'onBeforeUnmount',
+                        info: t('form.onBeforeUnmount'),
+                        args: ['api'],
+                    },
+                    {
                         name: 'onReload',
                         info: t('form.onReload'),
                         args: ['api'],
