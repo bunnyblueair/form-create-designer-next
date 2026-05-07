@@ -35,6 +35,12 @@
     background-color: #FFFFFF;
 }
 
+._fc-designer .CodeMirror-placeholder,
+._fd-struct-con .CodeMirror-placeholder,
+._fd-config-dialog .CodeMirror-placeholder {
+    color: #aaaaaa !important;
+}
+
 ._fc-designer {
     height: 100%;
     min-height: 500px;
@@ -831,4 +837,16 @@
 
 ._fd-menu-item.is-active > div > .fc-icon {
     color: #2E73FF;
+}
+
+._fd-form-item-wrap > .ant-form-item-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+._fd-form-item-wrap > .ant-form-item-row > .ant-form-item-control {
+    width: 155px;
+    flex: none;
 }

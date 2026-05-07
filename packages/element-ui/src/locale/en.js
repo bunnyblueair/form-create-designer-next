@@ -126,6 +126,7 @@ const En = {
     },
     struct: {
         title: 'Edit',
+        editText: 'Edit text',
         only: '[{label}] Only one allowed to be added',
         errorMsg: 'The input content is syntactically incorrect',
         configured: 'Configured',
@@ -197,6 +198,8 @@ const En = {
         optionsType: {
             fetch: 'Fetch',
             struct: 'Static',
+            text: 'Text',
+            json: 'JSON',
         },
         preview: 'Preview Response Data',
         test: 'Test Request',

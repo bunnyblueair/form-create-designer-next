@@ -126,6 +126,7 @@ const ZhCn = {
     },
     struct: {
         title: '编辑数据',
+        editText: '编辑文本',
         only: '【{label}】只允许添加一个',
         errorMsg: '输入的内容语法错误',
         configured: '已配置',
@@ -197,6 +198,8 @@ const ZhCn = {
         optionsType: {
             fetch: '远程数据',
             struct: '静态数据',
+            text: '文本录入',
+            json: 'JSON数据',
         },
         preview: '预览响应数据',
         test: '测试请求',

@@ -36,11 +36,14 @@ export function makeTreeOptions(pre, config, level, data = []) {
     return data;
 }
 
-export function makeOptionsRule(t, to) {
+export function makeOptionsRule(t, to, label, value, children) {
     const options = [
         {'label': t('fetch.optionsType.struct'), 'value': 2},
+        {'label': t('fetch.optionsType.text'), 'value': 4},
+        {'label': t('fetch.optionsType.json'), 'value': 5},
         {'label': t('fetch.optionsType.fetch'), 'value': 1},
     ];
+    const field = 'formCreate' + upper(to).replace('.', '>');
 
     const control = [
         {
@@ -60,34 +63,69 @@ export function makeOptionsRule(t, to) {
             rule: [
                 {
                     type: 'TableOptions',
-                    field: 'formCreate' + upper(to).replace('.', '>'),
+                    field: field,
                     props: {
                         column: [{label: t('props.key'), key: 'label'}, {value: true, label: t('props.value'), key: 'value'}],
                         keyValue: 'label'
                     }
                 },
             ],
-        }
+        },
+        {
+            value: 4,
+            rule: [
+                {
+                    type: 'OptionTextInput',
+                    field: field,
+                    props: {
+                        placeholder: `选项1\n选项2\n选项3`,
+                        field: {
+                            label: label || 'label',
+                            value: value || 'value',
+                            children: children || 'children',
+                        },
+                    },
+                },
+            ],
+        },
+        {
+            value: 5,
+            rule: [
+                {
+                    type: 'Struct',
+                    field: field,
+                    props: {
+                        validate(val) {
+                            return Array.isArray(val);
+                        },
+                    },
+                },
+            ],
+        },
     ];
 
     return {
-        type: 'radio',
+        type: 'select',
         title: t('props.options'),
         field: '_optionType',
         value: 2,
         options,
+        wrap: {class: '_fd-form-item-wrap'},
         props: {
-            optionType: 'button'
+            allowClear: false
         },
         control
     };
 }
 
-export function makeTreeOptionsRule(t, to, label, value) {
+export function makeTreeOptionsRule(t, to, label, value, children) {
     const options = [
         {'label': t('fetch.optionsType.struct'), 'value': 2},
+        {'label': t('fetch.optionsType.text'), 'value': 4},
+        {'label': t('fetch.optionsType.json'), 'value': 5},
         {'label': t('fetch.optionsType.fetch'), 'value': 1},
     ];
+    const field = 'formCreate' + upper(to).replace('.', '>');
 
     const control = [
         {
@@ -107,7 +145,7 @@ export function makeTreeOptionsRule(t, to, label, value) {
             rule: [
                 {
                     type: 'TreeOptions',
-                    field: 'formCreate' + upper(to).replace('.', '>'),
+                    field: field,
                     props: {
                         columns: {
                             label,
@@ -117,17 +155,50 @@ export function makeTreeOptionsRule(t, to, label, value) {
                     }
                 },
             ],
-        }
+        },
+        {
+            value: 4,
+            rule: [
+                {
+                    type: 'OptionTextInput',
+                    field: field,
+                    props: {
+                        placeholder: `选项1\n 选项1-1\n  选项1-1-1\n选项2\n 选项2-1\n 选项2-2`,
+                        parseSpace: true,
+                        field: {
+                            label: label || 'label',
+                            value: value || 'value',
+                            children: children || 'children',
+                        },
+                    },
+                },
+            ],
+        },
+        {
+            value: 5,
+            rule: [
+                {
+                    type: 'Struct',
+                    field: field,
+                    props: {
+                        validate(val) {
+                            return Array.isArray(val);
+                        },
+                    },
+                },
+            ],
+        },
     ];
 
     return {
-        type: 'radio',
+        type: 'select',
         title: t('props.options'),
         field: '_optionType',
         value: 2,
         options,
+        wrap: {class: '_fd-form-item-wrap'},
         props: {
-            optionType: 'button'
+            allowClear: false
         },
         control
     };

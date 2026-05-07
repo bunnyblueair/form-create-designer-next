@@ -10,6 +10,12 @@
     --fc-tool-border-color: #2E73FF;
 }
 
+._fc-designer .CodeMirror-placeholder,
+._fd-struct-con .CodeMirror-placeholder,
+._fd-config-dialog .CodeMirror-placeholder {
+    color: #aaaaaa !important;
+}
+
 ._fc-designer > .el-main {
     position: absolute;
     top: 0;
