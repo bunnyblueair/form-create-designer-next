@@ -1691,11 +1691,11 @@ export default defineComponent({
 
                 if (data.baseForm.isShow) {
                     data.baseForm.value = {
+                        ...formData,
                         field: rule.field,
                         title: rule.title || '',
                         info: rule.info,
                         _control: rule._control,
-                        ...formData
                     };
                     data.validateForm.value = {
                         validate: rule.validate ? [...rule.validate] : [],
