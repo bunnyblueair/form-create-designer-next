@@ -285,6 +285,7 @@ export default defineComponent({
     color: #000;
     font-family: monospace;
     direction: ltr;
+    background: #F5F5F5;
 }
 
 ._fd-fn-tip .cm-keyword {
@@ -301,7 +302,7 @@ export default defineComponent({
 }
 
 ._fd-fn-ind {
-    background-color: #f7f7f7;
+    background-color: #ECECEC;
     width: 29px;
     height: 24px;
     display: inline-block;
