@@ -822,6 +822,18 @@ export default defineComponent({
             return Array.isArray(menu.value) ? menu.value : defaultMenus.value;
         });
 
+        const initMenuDefaultCollapse = () => {
+            const collapseMenu = configRef.value?.collapseMenu || [];
+            if (Array.isArray(collapseMenu)) {
+                menuList.value.forEach(item => {
+                    if (!item) return;
+                    if (item.hidden === undefined && collapseMenu.indexOf(item.name) > -1) {
+                        item.hidden = true;
+                    }
+                });
+            }
+        };
+
         const methods = {
             setDevice(device) {
                 data.device = device;
@@ -2477,6 +2489,7 @@ export default defineComponent({
         }
         data.dragForm.rule = methods.makeDragRule(methods.makeChildren(data.children));
         methods.setOption({});
+        initMenuDefaultCollapse();
         if (!menu.value) {
             methods.addComponent(ruleList);
         } else {

@@ -136,6 +136,8 @@ export interface Config {
     }[],
     //隐藏部分菜单
     hiddenMenu?: MenuName[]
+    //左侧菜单分组默认收起
+    collapseMenu?: MenuName[]
     //隐藏部分组件
     hiddenItem?: string[];
     //隐藏表单部分配置项
