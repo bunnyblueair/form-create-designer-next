@@ -279,7 +279,29 @@ const ZhCn = {
             400: '常规体',
             500: '中黑体',
             700: '中粗体',
-        }
+        },
+        background: {
+            name: '背景',
+            image: '背景图',
+            placeholder: '输入图片地址',
+            select: '选择',
+            size: {
+                name: '尺寸',
+                cover: '覆盖',
+                contain: '包含',
+                auto: '自动',
+            },
+            position: '位置',
+            repeat: {
+                name: '重复',
+                'no-repeat': '不重复',
+                repeat: '重复',
+                'repeat-x': '横向重复',
+                'repeat-y': '纵向重复',
+                round: '圆角重复',
+                space: '间距重复',
+            },
+        },
     },
     designer: {
         component: '组件配置',

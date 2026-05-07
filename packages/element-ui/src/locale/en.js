@@ -279,7 +279,29 @@ const En = {
             400: 'Default',
             500: 'Medium',
             700: 'Bold',
-        }
+        },
+        background: {
+            name: 'Background',
+            image: 'Background Image',
+            placeholder: 'Enter image URL',
+            select: 'Select',
+            size: {
+                name: 'Size',
+                cover: 'Cover',
+                contain: 'Contain',
+                auto: 'Auto',
+            },
+            position: 'Position',
+            repeat: {
+                name: 'Repeat',
+                'no-repeat': 'No Repeat',
+                repeat: 'Repeat',
+                'repeat-x': 'Repeat X',
+                'repeat-y': 'Repeat Y',
+                round: 'Round',
+                space: 'Space',
+            },
+        },
     },
     designer: {
         component: 'Component',

@@ -223,11 +223,13 @@ export function deepGet(object, path, defaultValue) {
 
 export const buildTranslator = (locale) => (path, option) => translate(path, option, unref(locale));
 
-export const translate = (path, option, locale) =>
-    deepGet(locale, path, '').replace(
-        /\{(\w+)\}/g,
-        (_, key) => `${option?.[key] ?? `{${key}}`}`
-    )
+export const translate = (path, option, locale) => {
+    const val = deepGet(locale, path, '');
+    if (typeof val === 'object') {
+        return val;
+    }
+    return val.replace(/\{(\w+)\}/g, (_, key) => `${option?.[key] ?? `{${key}}`}`);
+}
 
 export const buildLocaleContext = (locale) => {
     const lang = computed(() => unref(locale).name)
