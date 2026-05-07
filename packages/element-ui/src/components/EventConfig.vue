@@ -389,16 +389,6 @@ export default defineComponent({
             this.closeCus();
         },
     },
-    beforeCreate() {
-        window.$inject = {
-            $f: {},
-            rule: [],
-            self: {},
-            option: {},
-            inject: {},
-            args: [],
-        };
-    }
 });
 </script>
 

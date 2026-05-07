@@ -358,16 +358,6 @@ export default defineComponent({
             });
         },
     },
-    beforeCreate() {
-        window.$inject = {
-            $f: {},
-            rule: [],
-            self: {},
-            option: {},
-            inject: {},
-            args: [],
-        };
-    },
     created() {
         this.init();
     }
