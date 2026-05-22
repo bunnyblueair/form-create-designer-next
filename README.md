@@ -21,6 +21,7 @@
 <p align="center">
   <a href="https://github.com/xaboy/form-create" target="_blank"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="TIM" /></a>
   <a href="https://github.com/xaboy/form-create" target="_blank"><img src="https://img.shields.io/npm/dt/@form-create/designer.svg" alt="dt" /></a>
+  <a href="https://github.com/xaboy/form-create" target="_blank"><img src="https://atomgit.com/xaboy/form-create-designer/star/badge.svg" alt="dt" /></a>
 </p>
 
 ## FormCreate 低代码表单设计器
