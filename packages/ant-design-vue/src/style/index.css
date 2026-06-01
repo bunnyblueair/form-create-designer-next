@@ -359,6 +359,13 @@
 ._fc-tree-label {
     display: flex;
     align-items: center;
+    min-width: 0;
+}
+
+._fc-tree-label > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 ._fc-tree-label > i {

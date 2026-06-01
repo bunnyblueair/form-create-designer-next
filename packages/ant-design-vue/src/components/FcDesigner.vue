@@ -82,16 +82,9 @@
                                 </template>
                             </a-layout-content>
                             <a-layout-content v-if="activeMenuTab === 'tree'">
-                                <a-directory-tree
-                                    ref="treeRef"
-                                    class="_fc-struct-tree"
-                                    :tree-data="treeInfo"
-                                    :selectable="false"
-                                    :showIcon="false"
-                                    defaultExpandAll
-                                >
-                                    <template #title="{data}">
-                                        <div class="_fc-tree-node" @click.stop="(e) => treeChange(e, data)"
+                                <StructTree ref="treeRef">
+                                    <template #default="{ node, data }">
+                                        <div class="_fc-tree-node"
                                              :class="{active: activeRule === data.rule}">
                                             <div class="_fc-tree-label">
                                                 <i class="fc-icon"
@@ -126,7 +119,7 @@
                                             </div>
                                         </div>
                                     </template>
-                                </a-directory-tree>
+                                </StructTree>
                             </a-layout-content>
                         </a-layout>
                     </a-layout-sider>
@@ -459,6 +452,7 @@ import FcAiPanel from './ai/AiPanel.vue';
 import JsonPreview from './JsonPreview.vue';
 import Warning from './Warning.vue';
 import FormLabel from './FormLabel.vue';
+import StructTree from './StructTree.vue';
 import mergeProps from '@form-create/utils/lib/mergeprops';
 import ConfigItem from './style/ConfigItem.vue';
 
@@ -469,6 +463,7 @@ export default defineComponent({
     name: 'FcDesigner',
     components: {
         Warning,
+        StructTree,
         FormLabel,
         LanguageConfig,
         PropsInput,
@@ -2314,9 +2309,6 @@ export default defineComponent({
             handleSortAfter() {
                 methods.addOperationRecord();
                 methods.updateTree();
-            },
-            treeChange(data) {
-                methods.triggerActive(data.rule);
             },
             getFormDescription() {
                 return getFormRuleDescription(methods.getDescription());

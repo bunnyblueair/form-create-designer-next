@@ -93,6 +93,7 @@
         "marked": "^17.0.0",
         "signature_pad": "^5.0.10",
         "vant": "^4.9.7",
+        "sortablejs": "1.14.0",
         "vuedraggable": "4.1.0"
     }
 }

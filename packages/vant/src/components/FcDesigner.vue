@@ -92,13 +92,7 @@
                             </template>
                         </el-main>
                         <el-main v-if="activeMenuTab === 'tree'">
-                            <el-tree
-                                ref="treeRef"
-                                :data="treeInfo"
-                                default-expand-all
-                                :expand-on-click-node="false"
-                                @currentChange="treeChange"
-                            >
+                            <StructTree ref="treeRef">
                                 <template #default="{ node, data }">
                                     <div class="_fc-tree-node" :class="{active: activeRule === data.rule}">
                                         <div class="_fc-tree-label">
@@ -133,7 +127,7 @@
                                         </div>
                                     </div>
                                 </template>
-                            </el-tree>
+                            </StructTree>
                         </el-main>
                     </el-container>
                 </el-aside>
@@ -468,6 +462,7 @@ import FcAiPanel from './ai/AiPanel.vue';
 import JsonPreview from './JsonPreview.vue';
 import Warning from './Warning.vue';
 import FormLabel from './FormLabel.vue';
+import StructTree from './StructTree.vue';
 import ConfigItem from './style/ConfigItem.vue';
 
 hljs.registerLanguage('javascript', javascript);
@@ -478,6 +473,7 @@ export default defineComponent({
     components: {
         ConfigItem,
         Warning,
+        StructTree,
         FormLabel,
         JsonPreview,
         LanguageConfig,
@@ -2294,9 +2290,6 @@ export default defineComponent({
             handleSortAfter() {
                 methods.addOperationRecord();
                 methods.updateTree();
-            },
-            treeChange(data) {
-                methods.triggerActive(data.rule);
             },
             getFormDescription() {
                 return getFormRuleDescription(methods.getDescription());
