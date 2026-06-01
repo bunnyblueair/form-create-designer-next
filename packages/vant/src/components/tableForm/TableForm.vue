@@ -57,6 +57,10 @@ export default {
         max: Number,
         min: Number,
         disabled: Boolean,
+        showIndex: {
+            type: Boolean,
+            default: true,
+        },
         beforeRemove: Function,
     },
     watch: {
@@ -66,13 +70,14 @@ export default {
             },
             deep: true,
         },
-        'formCreateInject.preview': function (n) {
-            this.emptyRule.children[0].props.colspan =
-                this.columns.filter(column => true !== column.hidden).length + (n || !this.deletable ? 1 : 2);
+        'formCreateInject.preview': function () {
+            this.updateEmptyColspan();
         },
-        deletable(n) {
-            this.emptyRule.children[0].props.colspan =
-                this.columns.filter(column => true !== column.hidden).length + (this.formCreateInject.preview || !n ? 1 : 2);
+        deletable() {
+            this.updateEmptyColspan();
+        },
+        showIndex() {
+            this.rebuildTable();
         },
     },
     data() {
@@ -97,9 +102,7 @@ export default {
                         native: true,
                         subRule: true,
                         props: {
-                            colspan:
-                                this.columns.filter(column => true !== column.hidden).length +
-                                (this.formCreateInject.preview || !this.deletable ? 1 : 2),
+                            colspan: 0,
                         },
                         children: [this.formCreateInject.t('dataEmpty') || '暂无数据'],
                     },
@@ -108,6 +111,26 @@ export default {
         };
     },
     methods: {
+        getColspan() {
+            const visibleCols = this.columns.filter(column => column.hidden !== true).length;
+            let extra = this.formCreateInject.preview || !this.deletable ? 1 : 2;
+            if (this.showIndex === false) {
+                extra -= 1;
+            }
+            return visibleCols + extra;
+        },
+        updateEmptyColspan() {
+            this.emptyRule.children[0].props.colspan = this.getColspan();
+        },
+        rebuildTable() {
+            const oldValue = this.oldValue;
+            this.loadRule();
+            this.updateEmptyColspan();
+            this.trs.splice(0, this.trs.length);
+            this.oldValue = '';
+            this.updateTable();
+            this.oldValue = oldValue;
+        },
         formChange() {
             this.updateValue();
         },
@@ -210,29 +233,31 @@ export default {
         },
         updateRaw(tr) {
             const idx = this.trs.indexOf(tr);
-            tr.children[0].props.innerText = idx + 1;
+            if (this.showIndex !== false) {
+                tr.children[0].props.innerText = idx + 1;
+            }
             tr.children[tr.children.length - 1].children[0].props.onClick = () => {
                 this.delRaw(idx);
             };
         },
         loadRule() {
-            const header = [
-                {
+            const header = [];
+            const body = [];
+            if (this.showIndex !== false) {
+                header.push({
                     type: 'th',
                     native: true,
                     class: '_fc-tf-head-idx',
-                },
-            ];
-            let body = [
-                {
+                });
+                body.push({
                     type: 'td',
                     class: '_fc-tf-idx',
                     native: true,
                     props: {
                         innerText: '0',
                     },
-                },
-            ];
+                });
+            }
             this.columns.forEach(column => {
                 if (column.hidden !== true) {
                     header.push({
@@ -314,6 +339,7 @@ export default {
     },
     created() {
         this.loadRule();
+        this.updateEmptyColspan();
     },
     mounted() {
         this.updateTable();

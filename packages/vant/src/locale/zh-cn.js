@@ -796,6 +796,7 @@ const ZhCn = {
                 filterEmptyColumn: '是否过滤空行的数据',
                 max: '最多添加几行，为 0 则不限制',
                 min: '最少添加几行',
+                showIndex: '显示行号',
                 addable: '允许新增',
                 deletable: '允许删除',
                 beforeRemove: '删除前置回调',

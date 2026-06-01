@@ -79,6 +79,11 @@ export default {
                 value: true,
             },
             {
+                type: 'switch',
+                field: 'showIndex',
+                value: true,
+            },
+            {
                 type: 'FnInput',
                 field: 'beforeRemove',
                 warning: t('com.tableForm.info'),

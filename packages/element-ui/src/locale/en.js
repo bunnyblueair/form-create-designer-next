@@ -855,6 +855,7 @@ const En = {
                 filterEmptyColumn: 'Whether to filter empty rows',
                 max: 'Maximum number of rows to add, if 0, there is no limit',
                 min: 'Minimum number of rows to add',
+                showIndex: 'Display line number',
                 addable: 'Allow to add',
                 deletable: 'Allow delete',
                 beforeRemove: 'Before remove callback',
