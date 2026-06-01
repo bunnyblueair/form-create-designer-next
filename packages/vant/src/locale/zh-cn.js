@@ -646,6 +646,8 @@ const ZhCn = {
             name: '表格布局',
             props: {
                 border: '是否显示边框',
+                mini: '紧凑模式',
+                formStyle: '表格表单样式',
                 borderColor: '边框颜色',
                 borderWidth: '边框宽度'
             }

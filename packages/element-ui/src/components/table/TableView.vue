@@ -1,5 +1,5 @@
 <template>
-    <div class="_fd-table-view" :class="{ 'is-mini': mini }">
+    <div class="_fd-table-view" :class="{ 'is-mini': mini, 'is-table-form': formStyle }">
         <table border="1" cellspacing="0" cellpadding="0" :style="tableColor" @mouseleave="mouseup" @mouseup="mouseup">
             <template v-for="(_, pid) in rule.row" :key="pid">
                 <tr>
@@ -97,6 +97,7 @@ export default defineComponent({
     name: 'FcTableView',
     props: {
         mini: Boolean,
+        formStyle: Boolean,
         label: String,
         width: [Number, String],
         formCreateInject: Object,
@@ -987,6 +988,33 @@ export default defineComponent({
 ._fd-table-view.is-mini .el-form-item {
     padding: 0;
     margin: 0;
+}
+
+._fd-table-view.is-table-form .el-form-item {
+    margin-bottom: 1px;
+}
+
+._fd-table-view.is-table-form .el-form-item.is-error {
+    margin-bottom: 22px;
+}
+
+._fd-table-view.is-table-form .el-form-item__label,
+._fd-table-view.is-table-form .van-field__label {
+    display: none !important;
+}
+
+._fd-table-view.is-table-form .el-form-item__content {
+    display: flex;
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+._fd-table-view.is-table-form .el-input-number,
+._fd-table-view.is-table-form .el-select,
+._fd-table-view.is-table-form .el-slider,
+._fd-table-view.is-table-form .el-cascader,
+._fd-table-view.is-table-form .el-date-editor {
+    width: 100%;
 }
 
 ._fd-table-context-menu {

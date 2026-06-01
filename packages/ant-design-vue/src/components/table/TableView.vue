@@ -1,5 +1,5 @@
 <template>
-    <div class="_fd-table-view" :class="{ 'is-mini': mini }">
+    <div class="_fd-table-view" :class="{ 'is-mini': mini, 'is-table-form': formStyle }">
         <table border="1" cellspacing="0" cellpadding="0" :style="tableColor" @mouseleave="mouseup" @mouseup="mouseup">
             <template v-for="(_, pid) in rule.row" :key="pid">
                 <tr>
@@ -97,6 +97,7 @@ export default defineComponent({
     name: 'FcTableView',
     props: {
         mini: Boolean,
+        formStyle: Boolean,
         label: String,
         width: [Number, String],
         formCreateInject: Object,
@@ -987,6 +988,32 @@ export default defineComponent({
 ._fd-table-view.is-mini .ant-form-item {
     padding: 0;
     margin: 0;
+}
+
+._fd-table-view.is-table-form .ant-form-item {
+    margin-bottom: 1px !important;
+}
+
+._fd-table-view.is-table-form .ant-form-item-has-error {
+    margin-bottom: 22px !important;
+}
+
+._fd-table-view.is-table-form .ant-form-item-label,
+._fd-table-view.is-table-form .van-field__label {
+    display: none !important;
+}
+
+._fd-table-view.is-table-form .ant-form-item-control {
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+._fd-table-view.is-table-form .ant-input-number,
+._fd-table-view.is-table-form .ant-select,
+._fd-table-view.is-table-form .ant-slider,
+._fd-table-view.is-table-form .ant-cascader,
+._fd-table-view.is-table-form .ant-picker {
+    width: 100%;
 }
 
 ._fd-table-context-menu {

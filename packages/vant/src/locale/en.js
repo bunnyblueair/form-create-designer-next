@@ -647,6 +647,8 @@ const En = {
             name: 'Table',
             props: {
                 border: 'Whether to display border',
+                mini: 'Compact Mode',
+                formStyle: 'Table form style',
                 borderColor: 'Border color',
                 borderWidth: 'Border width'
             }
