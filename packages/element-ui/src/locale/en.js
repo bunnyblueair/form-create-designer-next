@@ -688,6 +688,8 @@ const En = {
             name: 'Signature',
             info: 'Callback function before removing signature, return false to prevent removal',
             props: {
+                tip: 'Signature tip text',
+                padTitle: 'Dialog title',
                 penColor: 'Line color',
                 disabled: 'Disabled',
                 beforeRemove: 'Before remove callback',
