@@ -8,6 +8,11 @@ export default function form({t}) {
             value: '',
             title: t('form.formName'),
         }, {
+            type: 'input',
+            field: 'class',
+            value: '',
+            title: 'Class',
+        }, {
             type: 'radio',
             field: 'labelPosition',
             value: 'left',

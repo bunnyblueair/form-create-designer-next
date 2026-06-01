@@ -468,6 +468,22 @@ import ConfigItem from './style/ConfigItem.vue';
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('xml', xml);
 
+function flatOptionValue(value, prefix, data) {
+    if (data == null || typeof data !== 'object' || Array.isArray(data)) {
+        if (prefix) {
+            value[prefix] = data;
+            value['formCreate' + upper(prefix)] = data;
+        }
+        return;
+    }
+    if (prefix) {
+        value['formCreate' + upper(prefix)] = data;
+    }
+    Object.keys(data).forEach(k => {
+        flatOptionValue(value, prefix ? `${prefix}>${k}` : k, data[k]);
+    });
+}
+
 export default defineComponent({
     name: 'FcDesigner',
     components: {
@@ -557,7 +573,18 @@ export default defineComponent({
         }
         const t = (...args) => _t(...args);
 
+        const analysisMenuProps = (props, ...args) => {
+            if (Array.isArray(props)) {
+                return deepCopy(props);
+            } else if (typeof props === 'function') {
+                return props(...args);
+            } else {
+                return [];
+            }
+        };
+
         const tidyRuleConfig = (orgRule, configRule, ...args) => {
+            const org = analysisMenuProps(orgRule, ...args);
             if (configRule) {
                 if (is.Function(configRule)) {
                     return configRule(...args);
@@ -565,14 +592,14 @@ export default defineComponent({
                 if (configRule.rule) {
                     let rule = configRule.rule(...args);
                     if (configRule.prepend) {
-                        rule = [...rule, ...orgRule(...args)];
+                        rule = [...rule, ...org];
                     } else if (configRule.append) {
-                        rule = [...orgRule(...args), ...rule];
+                        rule = [...org, ...rule];
                     }
                     return rule;
                 }
             }
-            return orgRule(...args);
+            return org;
         }
 
         const defaultMenus = ref(deepCopy(menus));
@@ -1260,10 +1287,8 @@ export default defineComponent({
                     const item = data.formOptions[key];
                     value['>' + key] = item;
                     value['formCreate' + upper(key)] = item;
-                    if (typeof item === 'object') {
-                        Object.keys(item).forEach(k => {
-                            value[key + '>' + k] = item[k];
-                        })
+                    if (item != null && typeof item === 'object' && !Array.isArray(item)) {
+                        flatOptionValue(value, key, item);
                     }
                 });
                 data.form.value = value;

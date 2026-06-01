@@ -529,8 +529,17 @@ export default defineComponent({
             this.designer.setupState.customActive({
                 name: 'fcTableGrid',
                 onPaste: rule => {
-                    rule.slot = key;
-                    this.formCreateInject.children.push(rule);
+                    let flag = false;
+                    this.formCreateInject.children.forEach(child => {
+                        if (child.slot === key) {
+                            flag = true;
+                            child.children.push(rule);
+                        }
+                    });
+                    if (!flag) {
+                        rule.slot = key;
+                        this.formCreateInject.children.push(rule);
+                    }
                 },
                 style: {
                     formData: {

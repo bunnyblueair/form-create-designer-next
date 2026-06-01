@@ -861,3 +861,7 @@
 ._fd-drag-item {
     width: 100%;
 }
+
+._fc-designer .CodeMirror-placeholder, ._fd-config-dialog .CodeMirror-placeholder, ._fd-struct-con .CodeMirror-placeholder {
+    color: #aaaaaa !important;
+}
