@@ -81,9 +81,9 @@
         "vue": "^3.5"
     },
     "dependencies": {
-        "@form-create/ant-design-vue": "^3.2.42",
-        "@form-create/component-wangeditor": "^3.2.14",
-        "@form-create/utils": "^3.2.31",
+        "@form-create/ant-design-vue": "^3.3.1",
+        "@form-create/component-wangeditor": "^3.3.0",
+        "@form-create/utils": "^3.3.0",
         "ant-design-vue": "~4.2.6",
         "codemirror": "^6.65.7",
         "js-beautify": "^1.15.1",

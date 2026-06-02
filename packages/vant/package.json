@@ -83,17 +83,17 @@
         "vue": "^3.5"
     },
     "dependencies": {
-        "@form-create/component-wangeditor": "^3.2.14",
-        "@form-create/element-ui": "^3.2.42",
-        "@form-create/utils": "^3.2.31",
-        "@form-create/vant": "^3.2.42",
+        "@form-create/component-wangeditor": "^3.3.0",
+        "@form-create/element-ui": "^3.3.1",
+        "@form-create/utils": "^3.3.0",
+        "@form-create/vant": "^3.3.1",
         "codemirror": "^6.65.7",
         "element-plus": "^2.11.1",
         "js-beautify": "^1.15.1",
         "marked": "^17.0.0",
         "signature_pad": "^5.0.10",
-        "vant": "^4.9.7",
         "sortablejs": "1.14.0",
+        "vant": "^4.9.7",
         "vuedraggable": "4.1.0"
     }
 }
