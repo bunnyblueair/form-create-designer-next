@@ -83,7 +83,7 @@ export function htmlTemplate(json, options) {
         <script src="https://unpkg.com/antdv-next@1/dist/antd.js"></script>
         <!-- Import formCreate -->
         <script src="https://unpkg.com/@form-create/antdv-next@3"></script>
-        <script src="https://unpkg.com/@form-create/antd-designer-next@3"></script>
+        <script src="https://unpkg.com/form-create-antd-designer-next@3"></script>
     </head>
     <body>
         <div id="app">

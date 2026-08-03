@@ -60,19 +60,19 @@
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/antdv-next@1/dist/antd.js"></script>
 <script src="https://unpkg.com/@form-create/antdv-next@next/dist/form-create.min.js"></script>
-<script src="https://unpkg.com/@form-create/antd-designer-next@next/dist/index.umd.js"></script>
+<script src="https://unpkg.com/form-create-antd-designer-next@next/dist/index.umd.js"></script>
 ```
 
 **NodeJs:**
 
 ```shell
-npm install @form-create/antd-designer-next@next
+npm install form-create-antd-designer-next@next
 npm install @form-create/antdv-next@next
 npm install antdv-next
 ```
 
 ```js
-import FcDesigner from '@form-create/antd-designer-next'
+import FcDesigner from 'form-create-antd-designer-next'
 import antd from 'antdv-next';
 import 'antdv-next/dist/reset.css';
 
