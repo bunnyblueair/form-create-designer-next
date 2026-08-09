@@ -1,6 +1,7 @@
 <template>
     <div class="_td-table-opt">
-        <a-table
+        <a-form-item-rest>
+            <a-table
                 :data-source="value"
                 :columns="columns"
                 :size="size || 'small'"
@@ -25,12 +26,13 @@
                         <i class="fc-icon icon-delete" @click="del(scope.index)"></i>
                     </template>
                 </template>
-        </a-table>
-        <div class="_td-table-opt-handle">
-            <a-button type="link" @click="add" size="small" v-if="!max || max > value.length">
-                <i class="fc-icon icon-add"></i> {{ t('tableOptions.add') }}
-            </a-button>
-        </div>
+            </a-table>
+            <div class="_td-table-opt-handle">
+                <a-button type="link" @click="add" size="small" v-if="!max || max > value.length">
+                    <i class="fc-icon icon-add"></i> {{ t('tableOptions.add') }}
+                </a-button>
+            </div>
+        </a-form-item-rest>
     </div>
 </template>
 

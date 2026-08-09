@@ -6,7 +6,6 @@ import cssnano from 'cssnano'
 import visualizer from 'rollup-plugin-visualizer';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import {author, license, name, version} from './package.json'
-import createComponentsPlugin from './vite.config.components.js'
 
 const extnedsPlugins = [];
 
@@ -85,5 +84,5 @@ export default defineConfig({
             ]
         }
     },
-    plugins: [vue(), vueJSX(), createComponentsPlugin(), banner(getBanner(__banner__)), cssInjectedByJsPlugin(), ...extnedsPlugins]
+    plugins: [vue(),  vueJSX(), banner(getBanner(__banner__)),cssInjectedByJsPlugin(), ...extnedsPlugins]
 })

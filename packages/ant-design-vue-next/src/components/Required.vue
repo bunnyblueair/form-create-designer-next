@@ -1,8 +1,10 @@
 <template>
     <div class="_fd-required">
-        <a-switch v-model:checked="required"></a-switch>
-        <LanguageInput v-model="requiredMsg" v-if="required"
-                       :placeholder="t('validate.requiredPlaceholder')"></LanguageInput>
+        <a-form-item-rest>
+            <a-switch v-model:checked="required"></a-switch>
+            <LanguageInput v-model="requiredMsg" v-if="required"
+                           :placeholder="t('validate.requiredPlaceholder')"></LanguageInput>
+        </a-form-item-rest>
     </div>
 </template>
 

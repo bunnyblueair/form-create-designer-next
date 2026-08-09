@@ -1,10 +1,2 @@
 packages:
-  - 'packages/*'
-allowBuilds:
-  core-js: false
-  core-js-pure: false
-  ejs: false
-  es5-ext: false
-  esbuild: true
-  husky: false
-  vue-demi: false
+- 'packages/*'

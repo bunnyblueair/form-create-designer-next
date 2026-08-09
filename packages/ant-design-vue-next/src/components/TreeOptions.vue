@@ -1,6 +1,7 @@
 <template>
     <div class="_fd-tree-opt">
-        <a-tree
+        <a-form-item-rest>
+            <a-tree
                 :tree-data="treeData"
                 :selectable="false"
                 :virtual="false">
@@ -25,7 +26,8 @@
                             </ValueInput>
                     </div>
                 </template>
-        </a-tree>
+            </a-tree>
+        </a-form-item-rest>
     </div>
 
 </template>

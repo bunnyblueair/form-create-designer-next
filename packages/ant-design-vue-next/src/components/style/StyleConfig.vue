@@ -1,35 +1,37 @@
 <template>
     <div class="_fd-style-config">
-        <BoxSpaceInput v-model="space" @change="onInput" style="margin-bottom: 10px;"></BoxSpaceInput>
-        <BoxSizeInput v-model="size" @change="onInput"></BoxSizeInput>
-        <ConfigItem :label="t('style.color')">
-            <ColorInput v-model="color" @change="onInput"></ColorInput>
-        </ConfigItem>
-        <BackgroundInput v-model="background" @change="onInput"></BackgroundInput>
-        <BorderInput v-model="border" @change="onInput"></BorderInput>
-        <RadiusInput v-model="radius" @change="onInput"/>
-        <FontInput v-model="font" @change="onInput"/>
-        <ShadowInput v-model="boxShadow" @change="onInput"></ShadowInput>
-        <PositionInput v-model="position" @change="onInput"></PositionInput>
-        <ConfigItem :label="t('style.opacity')" class="_fd-opacity-input">
-            <a-slider v-model:value="opacity"
-                      @change="onInput"></a-slider>
-            <span>{{ opacity }}%</span>
-        </ConfigItem>
-        <ConfigItem :label="t('style.scale')" class="_fd-opacity-input">
-            <a-slider :min="80" :max="120" v-model:value="scale"
-                      @change="onInput"></a-slider>
-            <span>{{ scale }}%</span>
-        </ConfigItem>
-        <ConfigItem :label="t('props.custom')"
-                    :info="Object.keys(formData).length > 0 ? t('struct.configured') : ''">
-            <template #append>
-                <TableOptions v-model="formData" @change="onInput" v-bind="{
+        <a-form-item-rest>
+            <BoxSpaceInput v-model="space" @change="onInput" style="margin-bottom: 10px;"></BoxSpaceInput>
+            <BoxSizeInput v-model="size" @change="onInput"></BoxSizeInput>
+            <ConfigItem :label="t('style.color')">
+                <ColorInput v-model="color" @change="onInput"></ColorInput>
+            </ConfigItem>
+            <BackgroundInput v-model="background" @change="onInput"></BackgroundInput>
+            <BorderInput v-model="border" @change="onInput"></BorderInput>
+            <RadiusInput v-model="radius" @change="onInput"/>
+            <FontInput v-model="font" @change="onInput"/>
+            <ShadowInput v-model="boxShadow" @change="onInput"></ShadowInput>
+            <PositionInput v-model="position" @change="onInput"></PositionInput>
+            <ConfigItem :label="t('style.opacity')" class="_fd-opacity-input">
+                <a-slider v-model:value="opacity"
+                          @change="onInput"></a-slider>
+                <span>{{ opacity }}%</span>
+            </ConfigItem>
+            <ConfigItem :label="t('style.scale')" class="_fd-opacity-input">
+                <a-slider :min="80" :max="120" v-model:value="scale"
+                          @change="onInput"></a-slider>
+                <span>{{ scale }}%</span>
+            </ConfigItem>
+            <ConfigItem :label="t('props.custom')"
+                        :info="Object.keys(formData).length > 0 ? t('struct.configured') : ''">
+                <template #append>
+                    <TableOptions v-model="formData" @change="onInput" v-bind="{
                 column: [{label: t('props.key'), key: 'label'}, {label: t('props.value'), key: 'value'}],
                 valueType: 'object'
             }"></TableOptions>
-            </template>
-        </ConfigItem>
+                </template>
+            </ConfigItem>
+        </a-form-item-rest>
     </div>
 </template>
 

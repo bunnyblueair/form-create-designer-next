@@ -6,7 +6,6 @@ import cssnano from 'cssnano'
 import visualizer from 'rollup-plugin-visualizer';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import {author, license, name, version} from './package.json'
-import createComponentsPlugin from './vite.config.components.js'
 
 const extnedsPlugins = [];
 
@@ -64,13 +63,11 @@ export default defineConfig({
                 exports: 'named',
                 globals: {
                     vue: 'Vue',
-                    '@form-create/antdv-next': 'formCreate',
-                    'antdv-next': 'antd'
+                    '@form-create/antdv-next': 'formCreate'
                 }
             },
             external: [
                 'vue',
-                'antdv-next',
                 '@form-create/antdv-next'
             ],
 
@@ -86,5 +83,5 @@ export default defineConfig({
             ]
         }
     },
-    plugins: [vue(), vueJSX(), createComponentsPlugin(), banner(getBanner(__banner__)), cssInjectedByJsPlugin(), ...extnedsPlugins]
+    plugins: [vue(),  vueJSX(), banner(getBanner(__banner__)),cssInjectedByJsPlugin(), ...extnedsPlugins]
 })
