@@ -2,8 +2,7 @@
     <div class="_fd-box-size-input">
         <ConfigItem :label="t('props.size')" :info="Object.keys(modelValue).length > 0 ? t('struct.configured') : ''">
             <template #append>
-                <a-form-item-rest>
-                    <a-form layout="vertical" size="small">
+                <a-form layout="vertical" size="small">
                         <a-form-item :label="t('style.' + key)" v-for="key in keys" :key="key">
                             <SizeInput v-model="boxStyle[key]" @change="onInput"></SizeInput>
                         </a-form-item>
@@ -28,8 +27,7 @@
                                 </a-tooltip>
                             </a-radio-group>
                         </a-form-item>
-                    </a-form>
-                </a-form-item-rest>
+                </a-form>
             </template>
         </ConfigItem>
     </div>
