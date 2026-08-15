@@ -9,7 +9,7 @@
                  centered :maskClosable="false" :destroyOnHidden="true"
                  width="1080px">
             <a-layout class="_fd-fn-list-con" style="height: 600px">
-                <a-layout-sider width="300px">
+                <a-layout-sider width="300px" theme="light" class="_fd-fn-list-sider">
                     <a-layout class="_fd-fn-list-l">
                         <a-layout-header class="_fd-fn-list-head" style="height:40px;">
                             <span style="color:#2E73FF;">{{ t('event.list') }}</span>
@@ -192,6 +192,12 @@ export default defineComponent({
     flex: 1;
     height: 100%;
     border: 1px solid #ECECEC;
+}
+
+._fd-fn-list-sider,
+._fd-fn-list-sider.ant-layout-sider,
+._fd-fn-list-l {
+    background: #FFFFFF;
 }
 
 ._fd-fn-list-con ._fd-fn-list-head {
